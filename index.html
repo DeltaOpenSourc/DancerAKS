@@ -1,115 +1,130 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-<title>Заказ танцев</title>
-<style>
-  /* Ваши стили без изменений */
-  body {
-    font-family: sans-serif; 
-    background-color: #f0f8ff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Заказ танцев</title>
+  <style>
+    body {
+      font-family: sans-serif; 
+      background-color: #f0f8ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 10px;
+      box-sizing: border-box;
+    }
 
-  #main {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
-    width: 400px; 
-  }
+    #main {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+      width: 400px;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
 
-  h3 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #007bff; 
-  }
+    h3 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #007bff; 
+    }
 
-  fieldset {
-    border: 1px solid #007bff; 
-    border-radius: 5px;
-    margin-bottom: 15px;
-    padding: 15px;
-  }
+    fieldset {
+      border: 1px solid #007bff; 
+      border-radius: 5px;
+      margin-bottom: 15px;
+      padding: 15px;
+    }
 
-  legend {
-    color: #007bff; 
-  }
+    legend {
+      color: #007bff; 
+      padding: 0 5px;
+    }
 
-  input[type="text"],
-  input[type="date"],
-  input[type="time"],
-  input[type="checkbox"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    box-sizing: border-box; 
-  }
+    input[type="text"],
+    input[type="date"],
+    input[type="time"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      box-sizing: border-box; 
+      font-size: 16px;
+    }
 
-  input[type="checkbox"] {
-    width: auto; 
-    margin-right: 5px;
-  }
+    input[type="checkbox"] {
+      width: auto; 
+      margin-right: 5px;
+      vertical-align: middle;
+      transform: scale(1.1);
+      cursor: pointer;
+    }
 
-  .small-button {
-    background-color: #007bff; 
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+    label {
+      cursor: pointer;
+      font-size: 16px;
+      user-select: none;
+    }
 
-  .small-button:hover {
-    background-color: #0069d9; 
-  }
+    .small-button {
+      background-color: #007bff; 
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
 
-  .cards-container {
-    display: flex; 
-    flex-direction: column;
-    align-items: center; 
-  }
+    .small-button:hover {
+      background-color: #0069d9; 
+    }
 
-  #result {
-    margin-top: 20px;
-    padding: 15px;
-    border: 1px solid #007bff;
-    border-radius: 5px;
-    background-color: #e9f5ff;
-    color: #003366;
-    font-size: 16px;
-    white-space: pre-line;
-  }
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #007bff;
+      border-radius: 5px;
+      background-color: #e9f5ff;
+      color: #003366;
+      font-size: 16px;
+      white-space: pre-line;
+      min-height: 50px;
+      box-sizing: border-box;
+      word-wrap: break-word;
+    }
 
-   @media (max-width: 480px) {
+    @media (max-width: 480px) {
       #main {
         padding: 20px;
         width: 100%;
-        border-radius: 0;
-        box-shadow: none;
+        max-width: 400px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        margin: 0 10px;
       }
 
       input[type="text"],
       input[type="date"],
       input[type="time"] {
-        width: 100%;
-        font-size: 16px;
-        padding: 12px;
+        font-size: 18px;
+        padding: 14px;
       }
 
       .small-button {
-        width: 100%;
         padding: 15px;
         font-size: 18px;
       }
     }
-</style>
+  </style>
 </head>
 
 <body>
@@ -144,50 +159,48 @@
       <div id="result"></div>
     </form>
   </div>
-    <script>
-const form = document.getElementById('orderForm');
-const resultDiv = document.getElementById('result');
 
-function showDate() {
-  const dataArr = [].concat(JSON.parse(localStorage.getItem('formData')));
-  let text = '';
-  dataArr.forEach((dataw, index) => {
-    const paidText = dataw.paid ? 'Да' : 'Нет';
-    text += `Запись ${index + 1}:\n` +
-            `ФИО: ${dataw.fio}\n` +
-            `Дата: ${dataw.date}\n` +
-            `Время: ${dataw.time}\n` +
-            `Оплачен: ${paidText}\n\n`;
-  });
-  resultDiv.textContent = text || 'Нет сохранённых данных.';
-}
+  <script>
+    const form = document.getElementById('orderForm');
+    const resultDiv = document.getElementById('result');
 
-form.addEventListener('submit', function (event) {
-  event.preventDefault();
+    function showDate() {
+      const stored = localStorage.getItem('formData');
+      const dataArr = stored ? JSON.parse(stored) : [];
+      let text = '';
+      dataArr.forEach((dataw, index) => {
+        const paidText = dataw.paid ? 'Да' : 'Нет';
+        text += `Запись ${index + 1}:\n` +
+                `ФИО: ${dataw.fio}\n` +
+                `Дата: ${dataw.date}\n` +
+                `Время: ${dataw.time}\n` +
+                `Оплачен: ${paidText}\n\n`;
+      });
+      resultDiv.textContent = text || 'Нет сохранённых данных.';
+    }
 
-  const f = new FormData(form);
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
 
-  const formData = {
-    fio: f.get('fio'),
-    date: f.get('date'),
-    time: f.get('time'),
-    paid: f.get('paid') === 'on'
-  };
+      const f = new FormData(form);
 
-  const stored = localStorage.getItem('formData');
-  const parsed = JSON.parse(stored);
-  const dataArr = [].concat(parsed);
-  dataArr.push(formData);
-  localStorage.setItem('formData', JSON.stringify(dataArr));
+      const formData = {
+        fio: f.get('fio'),
+        date: f.get('date'),
+        time: f.get('time'),
+        paid: f.get('paid') === 'on'
+      };
 
-  showDate();
-  form.reset();
-});
+      const stored = localStorage.getItem('formData');
+      const parsed = stored ? JSON.parse(stored) : [];
+      parsed.push(formData);
+      localStorage.setItem('formData', JSON.stringify(parsed));
 
-window.addEventListener('DOMContentLoaded', showDate);
-</script>
+      showDate();
+      form.reset();
+    });
 
-
-
+    window.addEventListener('DOMContentLoaded', showDate);
+  </script>
 </body>
 </html>
