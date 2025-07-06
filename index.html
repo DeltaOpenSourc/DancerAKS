@@ -3,7 +3,7 @@
 <head>
 <title>Заказ танцев</title>
 <style>
-  /* Ваши стили без изменений */
+  
   body {
     font-family: sans-serif; 
     background-color: #f0f8ff;
@@ -130,7 +130,7 @@
       const datawStr = localStorage.getItem('formData');
       const dataw = JSON.parse(datawStr);
       const paidText = dataw.paid ? 'Да' : 'Нет';
-      resultDiv.textContent = dataw.fio + "\n" + dataw.date + "\n" + dataw.time + "\n" + dataw.paidText   
+      resultDiv.textContent = dataw.fio + "\n" + dataw.date + "\n" + dataw.time + "\n" + dataw.paid 
     }
 
     form.addEventListener('submit', function (event) {
