@@ -151,7 +151,8 @@
 
       function showDate() {
         const dataStr = localStorage.getItem('formData');
-        const dataList = JSON.parse(dataStr) [];
+        const dataList = JSON.parse(localStorage.getItem('formData') || '[]');
+
 
         let text = "";
         dataList.forEach((item, i) => {
@@ -181,7 +182,8 @@
         const newEntry = { fio, date, time, paid };
 
         const dataStr = localStorage.getItem('formData');
-        const dataList = JSON.parse(dataStr) [];
+        const dataList = JSON.parse(localStorage.getItem('formData') || '[]');
+
 
         dataList.push(newEntry);
 
