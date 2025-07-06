@@ -210,51 +210,31 @@
 
     <form id="orderForm">
       <fieldset>
-        <legend>Что вы заказываете?</legend>
-        <label>
-          <input type="radio" name="orderType" value="Песня" required />
-          Песню
-        </label>
-        <label>
-          <input type="radio" name="orderType" value="Клип" />
-          Клип
-        </label>
-        <label>
-          <input type="radio" name="orderType" value="Песня + клип" />
-          Песню + клип
-        </label>
+        <legend>ФИО</legend>
+        <input type="tel" name="phone" placeholder="Ф.И.О"
+          aria-label="Имя Фамилия" />
       </fieldset>
+
 
       <fieldset>
         <legend>Дата:</legend>
         <input type="tel" name="phone" placeholder="7 июля или 07.07.2025"
           aria-label="" />
-      </fieldset>
 
-      <fieldset>
         <legend>Время:</legend>
         <input type="tel" name="phone" placeholder="00:00"
           aria-label="" />
       </fieldset>
 
       <fieldset>
-        <legend>Есть ли у вас текст и жанр песни?</legend>
+        <legend>Оплатил ли клиент</legend>
         <label>
           <input type="checkbox" name="hasText" id="hasText" />
-          Есть текст
-        </label>
-
-        <label>
-          Жанр песни:
-          <select name="genre" id="genre" aria-label="Выберите жанр песни">
-            <option value="" selected>Выберите жанр</option>
-            <option value="Поп">Поп</option>
-            <option value="Рок">Рок</option>
-          </select>
+          Оплатил
         </label>
       </fieldset>
 
-      <button type="submit" class="small-button">Отправить заказ</button>
+      <button type="submit" class="small-button">Создать</button>
     </form>
   </div>
 
