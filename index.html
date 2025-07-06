@@ -145,45 +145,48 @@
     </form>
   </div>
     <script>
-      const form = document.getElementById('orderForm');
-      const resultDiv = document.getElementById('result');
+const form = document.getElementById('orderForm');
+const resultDiv = document.getElementById('result');
 
-      function showDate() {
-        const dataArr = JSON.parse(localStorage.getItem('formData')) || [];
-        let text = '';
-        dataArr.forEach((dataw, index) => {
-          const paidText = dataw.paid ? 'Да' : 'Нет';
-          text += `Запись ${index + 1}:\n` +
-                  `ФИО: ${dataw.fio}\n` +
-                  `Дата: ${dataw.date}\n` +
-                  `Время: ${dataw.time}\n` +
-                  `Оплачен: ${paidText}\n\n`;
-        });
-        resultDiv.textContent = text || 'Нет сохранённых данных.';
-      }
-      
-      form.addEventListener('submit', function (event) {
-        event.preventDefault();
-      
-        const f = new FormData(form);
-      
-        const formData = {
-          fio: f.get('fio'),
-          date: f.get('date'),
-          time: f.get('time'),
-          paid: f.get('paid') === 'on'
-        };
-      
-        const dataArr = JSON.parse(localStorage.getItem('formData')) || [];
-        dataArr.push(formData);
-        localStorage.setItem('formData', JSON.stringify(dataArr));
-      
-        showDate();
-        form.reset();
-      });
-      
-      window.addEventListener('DOMContentLoaded', showDate);
-  </script>
+function showDate() {
+  const dataArr = [].concat(JSON.parse(localStorage.getItem('formData')));
+  let text = '';
+  dataArr.forEach((dataw, index) => {
+    const paidText = dataw.paid ? 'Да' : 'Нет';
+    text += `Запись ${index + 1}:\n` +
+            `ФИО: ${dataw.fio}\n` +
+            `Дата: ${dataw.date}\n` +
+            `Время: ${dataw.time}\n` +
+            `Оплачен: ${paidText}\n\n`;
+  });
+  resultDiv.textContent = text || 'Нет сохранённых данных.';
+}
+
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  const f = new FormData(form);
+
+  const formData = {
+    fio: f.get('fio'),
+    date: f.get('date'),
+    time: f.get('time'),
+    paid: f.get('paid') === 'on'
+  };
+
+  const stored = localStorage.getItem('formData');
+  const parsed = JSON.parse(stored);
+  const dataArr = [].concat(parsed);
+  dataArr.push(formData);
+  localStorage.setItem('formData', JSON.stringify(dataArr));
+
+  showDate();
+  form.reset();
+});
+
+window.addEventListener('DOMContentLoaded', showDate);
+</script>
+
 
 
 </body>
