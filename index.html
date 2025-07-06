@@ -144,59 +144,47 @@
       <div id="result"></div>
     </form>
   </div>
+    <script>
+      const form = document.getElementById('orderForm');
+      const resultDiv = document.getElementById('result');
 
-  <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('orderForm');
-    const resultDiv = document.getElementById('result');
-
-    function showDate() {
-      const dataStr = localStorage.getItem('formData');
-      const dataList = dataStr ? JSON.parse(dataStr) : [];
-
-      let text = "";
-      dataList.forEach((item, i) => {
-        text += `Запись #${i + 1}:
-ФИО: ${item.fio}
-Дата: ${item.date}
-Время: ${item.time}
-Оплачен: ${item.paid ? 'Да' : 'Нет'}
-
-`;
+      function showDate() {
+        const dataArr = JSON.parse(localStorage.getItem('formData')) || [];
+        let text = '';
+        dataArr.forEach((dataw, index) => {
+          const paidText = dataw.paid ? 'Да' : 'Нет';
+          text += `Запись ${index + 1}:\n` +
+                  `ФИО: ${dataw.fio}\n` +
+                  `Дата: ${dataw.date}\n` +
+                  `Время: ${dataw.time}\n` +
+                  `Оплачен: ${paidText}\n\n`;
+        });
+        resultDiv.textContent = text || 'Нет сохранённых данных.';
+      }
+      
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+      
+        const f = new FormData(form);
+      
+        const formData = {
+          fio: f.get('fio'),
+          date: f.get('date'),
+          time: f.get('time'),
+          paid: f.get('paid') === 'on'
+        };
+      
+        const dataArr = JSON.parse(localStorage.getItem('formData')) || [];
+        dataArr.push(formData);
+        localStorage.setItem('formData', JSON.stringify(dataArr));
+      
+        showDate();
+        form.reset();
       });
-      resultDiv.textContent = text;
+      
+      window.addEventListener('DOMContentLoaded', showDate);
+  </script>
 
-    }
-
-    showDate();
-
-    form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    errorMessageDiv.textContent = '';
-    const data = new FormData(form);
-    if (!data.get('fio') || !data.get('date') || !data.get('time')) {
-        errorMessageDiv.textContent = 'Заполните все поля!';
-        return;
-    }
-    const formData = {
-        fio: data.get('fio'),
-        date: data.get('date'),
-        time: data.get('time'),
-        paid: data.get('paid') === 'on'
-    };
-    let dataList = JSON.parse(localStorage.getItem('formData')) || []; // ИЗМЕНЕНИЕ ЗДЕСЬ
-    if (!Array.isArray(dataList)) { // проверка типа данных
-        dataList = []; // если не массив, создаём пустой
-        console.error("Ошибка: Данные в localStorage не являются массивом. localStorage очищен.");
-    }
-    dataList.push(formData);
-    localStorage.setItem('formData', JSON.stringify(dataList));
-    form.reset();
-    showData();
-});
-
-  });
-</script>
 
 </body>
 </html>
