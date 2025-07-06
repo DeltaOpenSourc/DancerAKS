@@ -1,232 +1,103 @@
 <!DOCTYPE html>
-<html lang="ru">
-
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Музыка и Клипы</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
+<title>Заказ танцев</title>
+<style>
+body {
+  font-family: sans-serif; 
+  background-color: #f0f8ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
 
-    #main {
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      padding: 40px;
-      text-align: center;
-      max-width: 600px;
-      width: 90%;
-    }
+#main {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+  width: 400px; 
+}
 
-    h1 {
-      color: #333;
-      font-size: 2.8em;
-      margin-bottom: 20px;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-    }
+h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #007bff; 
+}
 
-    h3 {
-      color: #666;
-      font-size: 1.6em;
-      margin-bottom: 30px;
-      font-weight: normal;
-    }
+fieldset {
+  border: 1px solid #007bff; 
+  border-radius: 5px;
+  margin-bottom: 15px;
+  padding: 15px;
+}
 
-    .cards-container {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-    }
+legend {
+  color: #007bff; 
+}
 
-    .small-button {
-      background: linear-gradient(to right, #ff758c, #ff7eb3);
-      border: none;
-      border-radius: 15px;
-      padding: 15px 30px;
-      color: white;
-      font-size: 1.2em;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 5px 15px rgba(255, 120, 140, 0.4);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      outline: none;
-      position: relative;
-      overflow: hidden;
-    }
+input[type="tel"],
+input[type="checkbox"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  box-sizing: border-box; 
+}
 
-    .small-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(255, 120, 140, 0.5);
-    }
+input[type="checkbox"] {
+  width: auto; 
+  margin-right: 5px;
+}
 
-    .small-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.2);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
+.small-button {
+  background-color: #007bff; 
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-    #selectedItems {
-      min-height: 60px;
-      font-size: 1.25em;
-      color: #4b5563;
-      background-color: #e0e7ff;
-      border: 2px solid #21177a;
-      border-radius: 12px;
-      padding: 20px 25px;
-      box-shadow: inset 0 2px 6px rgba(139, 92, 246, 0.3);
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      user-select: text;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
+.small-button:hover {
+  background-color: #0069d9; 
+}
 
-    .small-button:hover::before {
-      opacity: 1;
-    }
-
-    .small-button:active {
-      transform: translateY(0);
-      box-shadow: 0 5px 15px rgba(255, 120, 140, 0.4);
-    }
-
-    .small-button:focus {
-      outline: none;
-    }
-
-
-    form {
-      text-align: left;
-      max-width: 500px;
-      margin: 0 auto 30px auto;
-    }
-
-    fieldset {
-      border: 2px solid #21177a;
-      border-radius: 15px;
-      padding: 20px 25px;
-      margin-bottom: 25px;
-      background-color: #f9f7ff;
-      box-shadow: inset 0 2px 6px rgba(139, 92, 246, 0.1);
-    }
-
-    legend {
-      font-weight: 700;
-      font-size: 1.3em;
-      color: #3564ff;
-      padding: 0 10px;
-    }
-
-    label {
-      display: flex;
-      align-items: center;
-      margin-bottom: 15px;
-      font-size: 1.1em;
-      color: #4b5563;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    label input[type="radio"],
-    label input[type="checkbox"] {
-      margin-right: 12px;
-      cursor: pointer;
-      accent-color: #21177a;
-      width: 18px;
-      height: 18px;
-    }
-
-    input[type="text"],
-    input[type="tel"] {
-      width: 100%;
-      padding: 10px 12px;
-      border: 2px solid #21177a;
-      border-radius: 12px;
-      font-size: 1em;
-      outline: none;
-      transition: border-color 0.3s ease;
-      box-sizing: border-box;
-    }
-
-    input[type="text"]:focus,
-    input[type="tel"]:focus {
-      border-color: #3564ff;
-      box-shadow: 0 0 8px rgba(9, 45, 121, 0.5);
-    }
-
-    @media (max-width: 768px) {
-      #main {
-        padding: 30px;
-      }
-
-      h1 {
-        font-size: 2.2em;
-      }
-
-      h3 {
-        font-size: 1.4em;
-      }
-
-      .cards-container {
-        flex-direction: column;
-        align-items: above;
-      }
-
-      .small-button {
-        font-size: 1em;
-        padding: 12px 25px;
-      }
-    }
-  </style>
+.cards-container {
+  display: flex; 
+  flex-direction: column;
+  align-items: center; 
+}
+</style>
 </head>
 
 <body>
   <div id="main">
     <h3>Танцы:</h3>
-
     <form id="orderForm">
       <fieldset>
         <legend>Фамилия Имя</legend>
-        <input type="tel" name="phone" placeholder="Ф.И.О"
-          aria-label="Имя Фамилия" />
+        <input type="text" name="fio" placeholder="Ф.И.О" aria-label="Имя Фамилия" />
       </fieldset>
-
 
       <fieldset>
         <legend>Дата:</legend>
-        <input type="tel" name="phone" placeholder="7 июля или 07.07.2025"
-          aria-label="" />
+        <input type="date" name="date" aria-label="Дата" />
       </fieldset>
 
       <fieldset>
         <legend>Время:</legend>
-        <input type="tel" name="phone" placeholder="00:00"
-          aria-label="" />
+        <input type="time" name="time" aria-label="Время" />
       </fieldset>
 
       <fieldset>
         <legend>Оплатил ли клиент</legend>
         <label>
-          <input type="checkbox" name="hasText" id="hasText" />
+          <input type="checkbox" name="paid" id="paid" />
           Оплатил
         </label>
       </fieldset>
@@ -239,5 +110,4 @@
     
   </script>
 </body>
-
 </html>
