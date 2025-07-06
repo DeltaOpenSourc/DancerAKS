@@ -3,6 +3,7 @@
 <head>
 <title>Заказ танцев</title>
 <style>
+  /* Ваши стили без изменений */
   body {
     font-family: sans-serif; 
     background-color: #f0f8ff;
@@ -141,7 +142,7 @@
       const fio = f.get('fio');
       const date = f.get('date');
       const time = f.get('time');
-      const paid = f.get('paid') === 'Оплачено';
+      const paid = f.get('paid') === 'on';
 
 
       const formData = {
