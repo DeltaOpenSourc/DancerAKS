@@ -3,6 +3,7 @@
 <head>
 <title>Заказ танцев</title>
 <style>
+  /* Ваши стили без изменений */
   body {
     font-family: sans-serif; 
     background-color: #f0f8ff;
@@ -85,6 +86,29 @@
     font-size: 16px;
     white-space: pre-line;
   }
+
+   @media (max-width: 480px) {
+      #main {
+        padding: 20px;
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      input[type="text"],
+      input[type="date"],
+      input[type="time"] {
+        width: 100%;
+        font-size: 16px;
+        padding: 12px;
+      }
+
+      .small-button {
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+      }
+    }
 </style>
 </head>
 
@@ -161,6 +185,8 @@
       
       showDate();
     });
+
+    window.addEventListener('DOMContentLoaded', showDate);
   </script>
 </body>
 </html>
