@@ -126,11 +126,9 @@
     const resultDiv = document.getElementById('result');
 
     function showDate() {
-      const paidText = dataw.paid ? 'Да' : 'Нет';
       const dataw = localStorage.getItem('formData');
-      resultDiv.textContent = dataw.fio + "\n" + dataw.data + "\n" + dataw.time + "\n" + dataw.paidText
-      
-
+      const paidText = dataw.paid ? 'Да' : 'Нет';
+      resultDiv.textContent = dataw.fio + "\n" + dataw.date + "\n" + dataw.time + "\n" + dataw.paidText   
     }
 
     form.addEventListener('submit', function (event) {
