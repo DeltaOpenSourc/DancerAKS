@@ -3,7 +3,6 @@
 <head>
 <title>Заказ танцев</title>
 <style>
-  /* Ваши стили без изменений */
   body {
     font-family: sans-serif; 
     background-color: #f0f8ff;
@@ -146,47 +145,55 @@
   </div>
 
   <script>
+  window.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('orderForm');
     const resultDiv = document.getElementById('result');
 
     function showDate() {
-      const datawStr = localStorage.getItem('formData');
-      const dataw = JSON.parse(datawStr);
-      const paidText = dataw.paid ? 'Да' : 'Нет';
-      resultDiv.textContent = 
-        `ФИО: ${dataw.fio}\n` +
-        `Дата: ${dataw.date}\n` +
-        `Время: ${dataw.time}\n` +
-        `Оплачен: ${paidText}`;
-      }
+      const dataStr = localStorage.getItem('formData');
+      const dataList = dataStr ? JSON.parse(dataStr) : [];
+
+      let text = "";
+      dataList.forEach((item, i) => {
+        text += `Запись #${i + 1}:
+ФИО: ${item.fio}
+Дата: ${item.date}
+Время: ${item.time}
+Оплачен: ${item.paid ? 'Да' : 'Нет'}
+
+`;
+      });
+      resultDiv.textContent = text;
+      
+    }
+
+    showDate();
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
 
       const f = new FormData(form);
 
-
       const fio = f.get('fio');
       const date = f.get('date');
       const time = f.get('time');
       const paid = f.get('paid') === 'on';
 
+      const newEntry = { fio, date, time, paid };
 
-      const formData = {
-        fio: fio,
-        date: date,
-        time: time,
-        paid: paid
-      };
+      const dataStr = localStorage.getItem('formData');
+      const dataList = dataStr ? JSON.parse(dataStr) : [];
 
+      dataList.push(newEntry);
 
-      localStorage.setItem('formData', JSON.stringify(formData));
+      localStorage.setItem('formData', JSON.stringify(dataList));
 
-      
       showDate();
-    });
 
-    window.addEventListener('DOMContentLoaded', showDate);
-  </script>
+      form.reset();
+    });
+  });
+</script>
+
 </body>
 </html>
