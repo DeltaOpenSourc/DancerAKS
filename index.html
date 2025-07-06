@@ -3,6 +3,7 @@
 <head>
 <title>Заказ танцев</title>
 <style>
+  /* Ваш CSS без изменений */
   body {
     font-family: sans-serif; 
     background-color: #f0f8ff;
@@ -150,9 +151,8 @@
       const resultDiv = document.getElementById('result');
 
       function showDate() {
-        const dataStr = localStorage.getItem('formData');
+        // Получаем массив из localStorage или пустой массив
         const dataList = JSON.parse(localStorage.getItem('formData') || '[]');
-
 
         let text = "";
         dataList.forEach((item, i) => {
@@ -181,17 +181,10 @@
 
         const newEntry = { fio, date, time, paid };
 
-        const dataStr = localStorage.getItem('formData');
+        // Считываем текущий список заказов
         const dataList = JSON.parse(localStorage.getItem('formData') || '[]');
-
-
         dataList.push(newEntry);
-
         localStorage.setItem('formData', JSON.stringify(dataList));
-
-        showDate();
-
-        form.reset();
       });
     });
   </script>
