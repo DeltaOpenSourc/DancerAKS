@@ -3,75 +3,78 @@
 <head>
 <title>Заказ танцев</title>
 <style>
-body {
-  font-family: sans-serif; 
-  background-color: #f0f8ff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
-}
+  /* Ваши стили без изменений */
+  body {
+    font-family: sans-serif; 
+    background-color: #f0f8ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
 
-#main {
-  background-color: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
-  width: 400px; 
-}
+  #main {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+    width: 400px; 
+  }
 
-h3 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #007bff; 
-}
+  h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #007bff; 
+  }
 
-fieldset {
-  border: 1px solid #007bff; 
-  border-radius: 5px;
-  margin-bottom: 15px;
-  padding: 15px;
-}
+  fieldset {
+    border: 1px solid #007bff; 
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 15px;
+  }
 
-legend {
-  color: #007bff; 
-}
+  legend {
+    color: #007bff; 
+  }
 
-input[type="tel"],
-input[type="checkbox"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-  box-sizing: border-box; 
-}
+  input[type="text"],
+  input[type="date"],
+  input[type="time"],
+  input[type="checkbox"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-sizing: border-box; 
+  }
 
-input[type="checkbox"] {
-  width: auto; 
-  margin-right: 5px;
-}
+  input[type="checkbox"] {
+    width: auto; 
+    margin-right: 5px;
+  }
 
-.small-button {
-  background-color: #007bff; 
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
+  .small-button {
+    background-color: #007bff; 
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
 
-.small-button:hover {
-  background-color: #0069d9; 
-}
+  .small-button:hover {
+    background-color: #0069d9; 
+  }
 
-.cards-container {
-  display: flex; 
-  flex-direction: column;
-  align-items: center; 
-}
+  .cards-container {
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+  }
 </style>
 </head>
 
@@ -81,17 +84,17 @@ input[type="checkbox"] {
     <form id="orderForm">
       <fieldset>
         <legend>Фамилия Имя</legend>
-        <input type="text" name="fio" placeholder="Ф.И.О" aria-label="Имя Фамилия" />
+        <input type="text" name="fio" placeholder="Ф.И.О" aria-label="Имя Фамилия" required />
       </fieldset>
 
       <fieldset>
         <legend>Дата:</legend>
-        <input type="date" name="date" aria-label="Дата" />
+        <input type="date" name="date" aria-label="Дата" required />
       </fieldset>
 
       <fieldset>
         <legend>Время:</legend>
-        <input type="time" name="time" aria-label="Время" />
+        <input type="time" name="time" aria-label="Время" required />
       </fieldset>
 
       <fieldset>
@@ -107,32 +110,40 @@ input[type="checkbox"] {
   </div>
 
   <script>
+    const form = document.getElementById('orderForm');
+
     form.addEventListener('submit', function (event) {
       event.preventDefault();
 
       const f = new FormData(form);
-      const orderType = f.get('orderType');
-      const phone = f.get('phone');
-      const has = f.get('hasText') === 'on';
-      const gen = f.get('genre');
+
+
+      const fio = f.get('fio');
+      const date = f.get('date');
+      const time = f.get('time');
+      const paid = f.get('paid') === 'Оплачено';
+
 
       const formData = {
-        orderType: orderType,
-        phone: phone,
-        hasText: has,
-        genre: gen
+        fio: fio,
+        date: date,
+        time: time,
+        paid: paid
       };
 
-      localStorage.setItem('formData', JSON.stringify(formData))
 
-      const DancerOption = localStorage.getItem('formData')
-      const Object = JSON.parse(userStr)
-      console.log(Object.orderType)
-      console.log(Object.phone)
-      console.log(Object.has)
-      console.log(Object.gen)
+      localStorage.setItem('formData', JSON.stringify(formData));
 
+ 
+      const stored = localStorage.getItem('formData');
+      const parsed = JSON.parse(stored);
 
+      console.log('ФИО:', parsed.fio);
+      console.log('Дата:', parsed.date);
+      console.log('Время:', parsed.time);
+      console.log('Оплата:', parsed.paid);
+      
+      form.reset();
     });
   </script>
 </body>
