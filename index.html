@@ -3,7 +3,6 @@
 <head>
 <title>Заказ танцев</title>
 <style>
-  /* Ваши стили без изменений */
   body {
     font-family: sans-serif; 
     background-color: #f0f8ff;
@@ -75,6 +74,17 @@
     flex-direction: column;
     align-items: center; 
   }
+
+  #result {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    background-color: #e9f5ff;
+    color: #003366;
+    font-size: 16px;
+    white-space: pre-line;
+  }
 </style>
 </head>
 
@@ -106,11 +116,22 @@
       </fieldset>
 
       <button type="submit" class="small-button">Создать</button>
+
+      <div id="result"></div>
     </form>
   </div>
 
   <script>
     const form = document.getElementById('orderForm');
+    const resultDiv = document.getElementById('result');
+
+    function showDate() {
+      const paidText = dataw.paid ? 'Да' : 'Нет';
+      const dataw = localStorage.getItem('formData');
+      resultDiv.textContent = dataw.fio + "\n" + dataw.data + "\n" + dataw.time + "\n" + dataw.paidText
+      
+
+    }
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
@@ -134,16 +155,8 @@
 
       localStorage.setItem('formData', JSON.stringify(formData));
 
- 
-      const stored = localStorage.getItem('formData');
-      const parsed = JSON.parse(stored);
-
-      console.log('ФИО:', parsed.fio);
-      console.log('Дата:', parsed.date);
-      console.log('Время:', parsed.time);
-      console.log('Оплата:', parsed.paid);
       
-      form.reset();
+      showDate();
     });
   </script>
 </body>
