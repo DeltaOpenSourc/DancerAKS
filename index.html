@@ -3,190 +3,168 @@
 <head>
 <title>Заказ танцев</title>
 <style>
-  /* Ваш CSS без изменений */
-  body {
-    font-family: sans-serif; 
-    background-color: #f0f8ff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-  }
+body {
+  font-family: sans-serif;
+  background-color: #f0f8ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
 
+#main {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  width: 400px;
+}
+
+h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #007bff;
+}
+
+fieldset {
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  padding: 15px;
+}
+
+legend {
+  color: #007bff;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"],
+input[type="checkbox"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+  width: auto;
+  margin-right: 5px;
+}
+
+.small-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.small-button:hover {
+  background-color: #0069d9;
+}
+
+#result {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  background-color: #e9f5ff;
+  color: #003366;
+  font-size: 16px;
+  white-space: pre-line;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+@media (max-width: 480px) {
   #main {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
-    width: 400px; 
+    padding: 20px;
+    width: 100%;
+    border-radius: 0;
+    box-shadow: none;
   }
-
-  h3 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #007bff; 
-  }
-
-  fieldset {
-    border: 1px solid #007bff; 
-    border-radius: 5px;
-    margin-bottom: 15px;
-    padding: 15px;
-  }
-
-  legend {
-    color: #007bff; 
-  }
-
   input[type="text"],
   input[type="date"],
-  input[type="time"],
-  input[type="checkbox"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    box-sizing: border-box; 
-  }
-
-  input[type="checkbox"] {
-    width: auto; 
-    margin-right: 5px;
-  }
-
-  .small-button {
-    background-color: #007bff; 
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .small-button:hover {
-    background-color: #0069d9; 
-  }
-
-  .cards-container {
-    display: flex; 
-    flex-direction: column;
-    align-items: center; 
-  }
-
-  #result {
-    margin-top: 20px;
-    padding: 15px;
-    border: 1px solid #007bff;
-    border-radius: 5px;
-    background-color: #e9f5ff;
-    color: #003366;
+  input[type="time"] {
     font-size: 16px;
-    white-space: pre-line;
+    padding: 12px;
   }
-
-   @media (max-width: 480px) {
-      #main {
-        padding: 20px;
-        width: 100%;
-        border-radius: 0;
-        box-shadow: none;
-      }
-
-      input[type="text"],
-      input[type="date"],
-      input[type="time"] {
-        width: 100%;
-        font-size: 16px;
-        padding: 12px;
-      }
-
-      .small-button {
-        width: 100%;
-        padding: 15px;
-        font-size: 18px;
-      }
-    }
+  .small-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+  }
+}
 </style>
 </head>
-
 <body>
-  <div id="main">
-    <h3>Танцы:</h3>
-    <form id="orderForm">
-      <fieldset>
-        <legend>Фамилия Имя</legend>
-        <input type="text" name="fio" placeholder="Ф.И.О" aria-label="Имя Фамилия" required />
-      </fieldset>
+<div id="main">
+  <h3>Заказ танцев:</h3>
+  <form id="orderForm">
+    <fieldset>
+      <legend>ФИО</legend>
+      <input type="text" name="fio" placeholder="Ф.И.О" required>
+    </fieldset>
+    <fieldset>
+      <legend>Дата:</legend>
+      <input type="date" name="date" required>
+    </fieldset>
+    <fieldset>
+      <legend>Время:</legend>
+      <input type="time" name="time" required>
+    </fieldset>
+    <fieldset>
+      <legend>Оплата</legend>
+      <label><input type="checkbox" name="paid"> Оплачено</label>
+    </fieldset>
+    <button type="submit" class="small-button">Создать</button>
+    <div id="result"></div>
+    <div id="error-message" class="error-message"></div>
+  </form>
+</div>
+<script>
+  const form = document.getElementById('orderForm');
+  const resultDiv = document.getElementById('result');
+  const errorMessageDiv = document.getElementById('error-message');
 
-      <fieldset>
-        <legend>Дата:</legend>
-        <input type="date" name="date" aria-label="Дата" required />
-      </fieldset>
+  function showData() {
+    const dataList = JSON.parse(localStorage.getItem('formData') || '[]');
+    resultDiv.textContent = dataList.length ? dataList.map((item, i) =>
+      `Запись #${i+1}:\nФИО: ${item.fio}\nДата: ${item.date}\nВремя: ${item.time}\nОплачено: ${item.paid ? 'Да' : 'Нет'}\n\n`
+    ).join('') : 'Нет записей.';
+  }
 
-      <fieldset>
-        <legend>Время:</legend>
-        <input type="time" name="time" aria-label="Время" required />
-      </fieldset>
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    errorMessageDiv.textContent = '';
+    const data = new FormData(form);
+    if (!data.get('fio') || !data.get('date') || !data.get('time')) {
+      errorMessageDiv.textContent = 'Заполните все поля!';
+      return;
+    }
+    const formData = {
+      fio: data.get('fio'),
+      date: data.get('date'),
+      time: data.get('time'),
+      paid: data.get('paid') === 'on'
+    };
+    let dataList = JSON.parse(localStorage.getItem('formData') || '[]');
+    dataList.push(formData);
+    localStorage.setItem('formData', JSON.stringify(dataList));
+    form.reset();
+    showData();
+  });
 
-      <fieldset>
-        <legend>Оплатил ли клиент</legend>
-        <label>
-          <input type="checkbox" name="paid" id="paid" />
-          Оплатил
-        </label>
-      </fieldset>
-
-      <button type="submit" class="small-button">Создать</button>
-
-      <div id="result"></div>
-    </form>
-  </div>
-
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      const form = document.getElementById('orderForm');
-      const resultDiv = document.getElementById('result');
-
-      function showDate() {
-        // Получаем массив из localStorage или пустой массив
-        const dataList = JSON.parse(localStorage.getItem('formData') || '[]');
-
-        let text = "";
-        dataList.forEach((item, i) => {
-          text += `Запись #${i + 1}:
-ФИО: ${item.fio}
-Дата: ${item.date}
-Время: ${item.time}
-Оплачен: ${item.paid ? 'Да' : 'Нет'}
-
-`;
-        });
-        resultDiv.textContent = text;
-      }
-
-      showDate();
-
-      form.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const f = new FormData(form);
-
-        const fio = f.get('fio');
-        const date = f.get('date');
-        const time = f.get('time');
-        const paid = f.get('paid') === 'on';
-
-        const newEntry = { fio, date, time, paid };
-
-        // Считываем текущий список заказов
-        const dataList = JSON.parse(localStorage.getItem('formData') || '[]');
-        dataList.push(newEntry);
-        localStorage.setItem('formData', JSON.stringify(dataList));
-      });
-    });
-  </script>
+  showData();
+</script>
 </body>
 </html>
