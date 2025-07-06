@@ -104,8 +104,8 @@
     <h3>Танцы:</h3>
     <form id="orderForm">
       <fieldset>
-        <legend>Фамилия Имя</legend>
-        <input type="text" name="fio" placeholder="Ф.И.О" aria-label="Фамилия Имя" required />
+        <legend>Название</legend>
+        <input type="text" name="fio" placeholder="Ф.И.О" aria-label="Название" required />
       </fieldset>
 
       <fieldset>
@@ -146,7 +146,7 @@
       let text = '';
       dataArr.forEach((item, i) => {
         text += `Запись ${i + 1}:\n` +
-                `ФИО: ${item.fio}\n` +
+                `Название: ${item.fio}\n` +
                 `Дата: ${item.date}\n` +
                 `Время: ${item.time}\n` +
                 `Оплачен: ${item.paid ? 'Да' : 'Нет'}\n\n`;
