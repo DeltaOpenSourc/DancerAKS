@@ -107,7 +107,33 @@ input[type="checkbox"] {
   </div>
 
   <script>
-    
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const f = new FormData(form);
+      const orderType = f.get('orderType');
+      const phone = f.get('phone');
+      const has = f.get('hasText') === 'on';
+      const gen = f.get('genre');
+
+      const formData = {
+        orderType: orderType,
+        phone: phone,
+        hasText: has,
+        genre: gen
+      };
+
+      localStorage.setItem('formData', JSON.stringify(formData))
+
+      const DancerOption = localStorage.getItem('formData')
+      const Object = JSON.parse(userStr)
+      console.log(Object.orderType)
+      console.log(Object.phone)
+      console.log(Object.has)
+      console.log(Object.gen)
+
+
+    });
   </script>
 </body>
 </html>
