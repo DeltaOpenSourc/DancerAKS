@@ -23,6 +23,8 @@
       width: 100%;
       max-width: 400px;
       box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
     }
     h3 {
       text-align: center;
@@ -71,12 +73,13 @@
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      margin-top: 10px;
     }
     button:hover {
       background-color: #0056b3;
     }
     #result {
-      margin-top: 20px;
+      margin-top: 25px;
       white-space: pre-wrap;
       background: #e9f5ff;
       padding: 15px;
@@ -86,6 +89,58 @@
       font-size: 16px;
       color: #003366;
       word-break: break-word;
+      box-sizing: border-box;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+    #result div {
+      background: #d7e6ff;
+      border: 1px solid #4a90e2;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(74, 144, 226, 0.3);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+      user-select: none;
+    }
+    #result div:hover {
+      background-color: #c0d9ff;
+      box-shadow: 0 4px 12px rgba(74, 144, 226, 0.5);
+    }
+    #result span {
+      font-weight: 700;
+      font-size: 20px;
+      user-select: none;
+      transition: color 0.3s ease;
+      cursor: pointer;
+      padding: 0 8px;
+      border-radius: 50%;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      box-sizing: border-box;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    #result span:hover {
+      filter: brightness(0.85);
+      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+    }
+    #result span.paid {
+      color: #2e7d32;
+      background: #d0f0d6;
+      border: 1px solid #2e7d32;
+    }
+    #result span.unpaid {
+      color: #c62828;
+      background: #f9d6d6;
+      border: 1px solid #c62828;
     }
     @media (max-width: 480px) {
       input[type="text"],
@@ -94,6 +149,15 @@
       button {
         font-size: 18px;
         padding: 14px;
+      }
+      #result div {
+        font-size: 18px;
+        padding: 12px 16px;
+      }
+      #result span {
+        font-size: 24px;
+        width: 32px;
+        height: 32px;
       }
     }
   </style>
@@ -111,7 +175,7 @@
   <button type="submit">Сохранить</button>
 </form>
 
-<div id="result" style="margin-top:20px; white-space: pre-wrap;"></div>
+<div id="result" style="white-space: pre-wrap;"></div>
 
 <script>
   const form = document.getElementById('form');
@@ -144,8 +208,8 @@
       div.textContent = `${item.fio}, ${item.date} ${item.time} — Оплачен: `;
       let span = document.createElement('span');
       span.textContent = item.paid ? '✓' : '✗';
-      span.style.cursor = 'pointer';
-      span.style.color = item.paid ? 'green' : 'red';
+      span.className = item.paid ? 'paid' : 'unpaid';
+      span.title = 'Нажмите, чтобы переключить статус оплаты';
       span.onclick = () => {
         data[i].paid = !data[i].paid;
         localStorage.setItem('formData', JSON.stringify(data));
