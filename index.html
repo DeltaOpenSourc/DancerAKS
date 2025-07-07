@@ -2,179 +2,68 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Заказ танцев</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      background: #f0f8ff;
-      margin: 0;
-      padding: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      box-sizing: border-box;
-    }
-    #main {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 400px;
-      box-sizing: border-box;
-    }
-    h3 {
-      text-align: center;
-      color: #007bff;
-      margin-bottom: 20px;
-    }
-    fieldset {
-      border: 1px solid #007bff;
-      border-radius: 5px;
-      margin-bottom: 15px;
-      padding: 10px 15px;
-    }
-    legend {
-      color: #007bff;
-      font-weight: bold;
-    }
-    input[type="text"],
-    input[type="date"],
-    input[type="time"] {
-      width: 100%;
-      padding: 8px;
-      margin-top: 6px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 16px;
-      box-sizing: border-box;
-    }
-    label {
-      font-size: 16px;
-      cursor: pointer;
-      user-select: none;
-    }
-    input[type="checkbox"] {
-      transform: scale(1.2);
-      margin-right: 8px;
-      vertical-align: middle;
-      cursor: pointer;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      font-size: 18px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    #result {
-      margin-top: 20px;
-      white-space: pre-wrap;
-      background: #e9f5ff;
-      padding: 15px;
-      border-radius: 5px;
-      border: 1px solid #007bff;
-      min-height: 60px;
-      font-size: 16px;
-      color: #003366;
-      word-break: break-word;
-    }
-    @media (max-width: 480px) {
-      input[type="text"],
-      input[type="date"],
-      input[type="time"],
-      button {
-        font-size: 18px;
-        padding: 14px;
-      }
-    }
-  </style>
+  <title>Запись на танцы</title>
 </head>
 <body>
-  <div id="main">
-    <h3>Танцы:</h3>
-    <form id="orderForm">
-      <fieldset>
-        <legend>Название</legend>
-        <input type="text" name="fio" placeholder="Название" aria-label="Название" required />
-      </fieldset>
 
-      <fieldset>
-        <legend>Дата:</legend>
-        <input type="date" name="date" aria-label="Дата" required />
-      </fieldset>
+<form id="form">
+  <input name="fio" placeholder="Название" required /><br />
+  <input type="date" name="date" required /><br />
+  <input type="time" name="time" required /><br />
+  <label>
+    Оплачен:
+    <input type="checkbox" name="paid" />
+  </label><br />
+  <button type="submit">Сохранить</button>
+</form>
 
-      <fieldset>
-        <legend>Время:</legend>
-        <input type="time" name="time" aria-label="Время" required />
-      </fieldset>
+<div id="result" style="margin-top:20px; white-space: pre-wrap;"></div>
 
-      <fieldset>
-        <legend>Оплатил ли клиент</legend>
-        <label>
-          <input type="checkbox" name="paid" />
-          Оплатил
-        </label>
-      </fieldset>
+<script>
+  const form = document.getElementById('form');
+  const resultDiv = document.getElementById('result');
 
-      <button type="submit">Создать</button>
-
-      <div id="result">Нет сохранённых данных.</div>
-    </form>
-  </div>
-
-  <script>
-    const form = document.getElementById('orderForm');
-    const resultDiv = document.getElementById('result');
-
-    function showData() {
-      const stored = localStorage.getItem('formData');
-      const dataArr = stored ? JSON.parse(stored) : [];
-      if (dataArr.length === 0) {
-        resultDiv.textContent = 'Нет сохранённых данных.';
-        return;
-      }
-      let text = '';
-      dataArr.forEach((item, i) => {
-        text += `Запись ${i + 1}:\n` +
-                `Название: ${item.fio}\n` +
-                `Дата: ${item.date}\n` +
-                `Время: ${item.time}\n` +
-                `Оплачен: ${item.paid ? 'Да' : 'Нет'}\n\n`;
-      });
-      resultDiv.textContent = text;
-    }
-
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-
-      const formData = new FormData(form);
-      const entry = {
-        fio: formData.get('fio'),
-        date: formData.get('date'),
-        time: formData.get('time'),
-        paid: formData.get('paid') === 'on'
-      };
-
-      const stored = localStorage.getItem('formData');
-      const dataArr = stored ? JSON.parse(stored) : [];
-      dataArr.push(entry);
-      localStorage.setItem('formData', JSON.stringify(dataArr));
-
-      showData();
-      form.reset();
+  form.onsubmit = e => {
+    e.preventDefault();
+    const data = JSON.parse(localStorage.getItem('formData') || '[]');
+    const formData = new FormData(form);
+    data.push({
+      fio: formData.get('fio'),
+      date: formData.get('date'),
+      time: formData.get('time'),
+      paid: formData.get('paid') === 'on'
     });
+    localStorage.setItem('formData', JSON.stringify(data));
+    form.reset();
+    showData();
+  };
 
-    window.addEventListener('load', showData);
-  </script>
+  function showData() {
+    let data = JSON.parse(localStorage.getItem('formData') || '[]');
+    if (!data.length) {
+      resultDiv.textContent = 'Нет данных';
+      return;
+    }
+    resultDiv.innerHTML = '';
+    data.forEach((item, i) => {
+      let div = document.createElement('div');
+      div.textContent = `${item.fio}, ${item.date} ${item.time} — Оплачен: `;
+      let span = document.createElement('span');
+      span.textContent = item.paid ? '✓' : '✗';
+      span.style.cursor = 'pointer';
+      span.style.color = item.paid ? 'green' : 'red';
+      span.onclick = () => {
+        data[i].paid = !data[i].paid;
+        localStorage.setItem('formData', JSON.stringify(data));
+        showData();
+      };
+      div.appendChild(span);
+      resultDiv.appendChild(div);
+    });
+  }
+
+  showData();
+</script>
+
 </body>
 </html>
