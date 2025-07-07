@@ -149,7 +149,7 @@
                 `Название: ${item.fio}\n` +
                 `Дата: ${item.date}\n` +
                 `Время: ${item.time}\n` +
-                `Оплачен: ${item.paid ? 'Да' : 'Нет'}\n\n`;
+                `Оплачен: ${item.paid ? 'Да' : 'Нет'}\n + ${paid}\n`;
       });
       resultDiv.textContent = text;
     }
