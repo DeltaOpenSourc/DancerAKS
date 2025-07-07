@@ -5,8 +5,8 @@
   <title>Запись на танцы</title>
   <style>
     body {
-      font-family: sans-serif;
-      background: #f0f8ff;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #eef4fb;
       margin: 0;
       padding: 10px;
       display: flex;
@@ -17,32 +17,42 @@
     }
     #form {
       background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 24px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       width: 100%;
-      max-width: 400px;
-      box-sizing: border-box;
+      max-width: 420px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      z-index: 20; /* Чтобы форма была поверх result на мобилках */
+      gap: 24px;
+      box-sizing: border-box;
       position: relative;
+      z-index: 10;
     }
     h3 {
       text-align: center;
-      color: #007bff;
-      margin-bottom: 20px;
+      color: #2c3e50;
+      margin-bottom: 0;
+      font-weight: 700;
+      font-size: 28px;
     }
     input[type="text"],
     input[type="date"],
     input[type="time"] {
       width: 100%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+      padding: 14px 16px;
+      border: 1.8px solid #b0c4de;
+      border-radius: 8px;
       font-size: 18px;
+      transition: border-color 0.3s ease;
       box-sizing: border-box;
+    }
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    input[type="time"]:focus {
+      border-color: #2980b9;
+      outline: none;
+      box-shadow: 0 0 8px #2980b9aa;
     }
     label {
       font-size: 18px;
@@ -50,138 +60,154 @@
       user-select: none;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      color: #34495e;
+      font-weight: 600;
     }
     input[type="checkbox"] {
       transform: scale(1.3);
       cursor: pointer;
+      accent-color: #2980b9;
     }
     button {
       width: 100%;
-      padding: 14px;
-      background-color: #007bff;
+      padding: 16px;
+      background-color: #2980b9;
       color: white;
       border: none;
-      font-size: 20px;
-      border-radius: 5px;
+      font-size: 22px;
+      border-radius: 10px;
       cursor: pointer;
+      font-weight: 700;
       transition: background-color 0.3s ease;
+      box-shadow: 0 4px 12px #2980b9aa;
     }
     button:hover {
-      background-color: #0056b3;
+      background-color: #1c5980;
+      box-shadow: 0 6px 16px #1c5980cc;
     }
     #result {
-      margin-top: 20px;
-      background-color: #c9e3ff;
-      color: white;
-      white-space: pre-wrap;
-      padding: 20px;
-      border-radius: 8px;
-      font-size: 18px;
-      max-height: 320px;
+      margin-top: 30px;
+      background-color: #ffffffdd;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      padding: 16px 20px;
+      max-height: 400px;
       overflow-y: auto;
-      box-shadow: 0 4px 12px rgba(117, 117, 117, 0.4);
-      box-sizing: border-box;
       width: 100%;
+      max-width: 420px;
+      box-sizing: border-box;
+      font-size: 17px;
+      color: #2c3e50;
+      user-select: none;
     }
-    #result div {
-      background: rgba(255 255 255 / 0.1);
-      border-radius: 8px;
-      padding: 14px 18px;
-      margin-bottom: 20px;
+    #result .entry {
+      background: #f9fbff;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 8px rgba(41, 128, 185, 0.1);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      cursor: default;
-      user-select: none;
-      font-size: 18px;
-      color: white;
-      box-shadow: 0 0 6px rgba(255 255 255 / 0.2);
-      transition: background-color 0.3s ease;
+      transition: background-color 0.25s ease;
     }
-    #result div:hover {
-      background-color: rgba(255 255 255 / 0.2);
+    #result .entry:hover {
+      background-color: #e6f0fa;
     }
-    #result span {
+    #result .entry .info {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-width: calc(100% - 70px);
+      word-break: break-word;
+    }
+    #result .entry .info span {
+      font-weight: 600;
+      color: #34495e;
+    }
+    #result .entry .info .label {
+      font-weight: 500;
+      color: #7f8c8d;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+    #result .entry .status {
+      min-width: 62px;
+      text-align: center;
       font-weight: 700;
-      font-size: 24px;
+      font-size: 20px;
+      user-select: none;
+      border-radius: 30px;
+      padding: 8px 12px;
       cursor: pointer;
-      padding: 0 10px;
-      border-radius: 50%;
-      line-height: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      box-sizing: border-box;
-      background-color: rgba(255 255 255 / 0.3);
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
       color: white;
-      box-shadow: 0 0 5px rgba(255 255 255 / 0.5);
-      transition: background-color 0.3s ease;
+      flex-shrink: 0;
+      user-select: none;
+      line-height: 1;
     }
-    #result span:hover {
-      background-color: rgba(255 255 255 / 0.5);
+    #result .entry .status.paid {
+      background: #27ae60;
+      box-shadow: 0 0 12px #27ae60aa;
     }
-    #result span.paid {
-      color: #28a745; 
-      background-color: rgba(40 167 69 / 0.3);
-      box-shadow: 0 0 8px rgba(40 167 69 / 0.7);
+    #result .entry .status.unpaid {
+      background: #e74c3c;
+      box-shadow: 0 0 12px #e74c3caa;
     }
-    #result span.unpaid {
-      color: #dc3545; 
-      background-color: rgba(220 53 69 / 0.3);
-      box-shadow: 0 0 8px rgba(220 53 69 / 0.7);
+    #result .empty {
+      text-align: center;
+      color: #95a5a6;
+      font-style: italic;
+      padding: 40px 0;
+      user-select: none;
     }
+
+    /* Мобильная версия */
     @media (max-width: 480px) {
-      #form {
+      body {
+        padding: 12px 8px;
+      }
+      #form, #result {
         max-width: 100%;
-        padding: 20px 15px;
+        width: 100%;
+      }
+      #form {
+        padding: 20px 18px;
         gap: 18px;
-        position: relative;
-        z-index: 20;
       }
       input[type="text"],
       input[type="date"],
       input[type="time"],
       button {
         font-size: 20px;
-        padding: 16px;
+        padding: 14px 16px;
       }
       label {
         font-size: 20px;
-        gap: 12px;
+        gap: 10px;
       }
       input[type="checkbox"] {
         transform: scale(1.4);
       }
       #result {
-        font-size: 20px;
-        padding: 18px;
-        max-width: 100%;
-        max-height: calc(100vh - 160px); /* высота экрана минус высота формы */
-        overflow-y: auto;
-        margin-top: 10px;
-        border-radius: 0;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-        box-shadow: none;
-        width: 100vw;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        background-color: #c9e3ff;
-        z-index: 10;
+        max-height: 60vh;
+        padding: 16px 18px;
+        margin-top: 24px;
+        font-size: 18px;
       }
-      #result div {
-        font-size: 20px;
-        padding: 16px 20px;
+      #result .entry {
+        padding: 16px 18px;
+        margin-bottom: 16px;
       }
-      #result span {
-        font-size: 28px;
-        width: 36px;
-        height: 36px;
-        padding: 0 12px;
+      #result .entry .info .label {
+        font-size: 15px;
+      }
+      #result .entry .status {
+        font-size: 22px;
+        padding: 10px 14px;
+        min-width: 70px;
       }
     }
   </style>
@@ -189,7 +215,7 @@
 <body>
   <form id="form">
     <h3>Танцы Расписание:</h3>
-    <input name="fio" placeholder="Название" required />
+    <input name="fio" placeholder="Название" required autocomplete="off" />
     <input type="date" name="date" required />
     <input type="time" name="time" required />
     <label>
@@ -198,7 +224,7 @@
     </label>
     <button type="submit">Сохранить</button>
 
-    <div id="result" style="white-space: pre-wrap;"></div>
+    <div id="result"></div>
   </form>
 
   <script>
@@ -210,7 +236,7 @@
       const data = JSON.parse(localStorage.getItem('formData') || '[]');
       const formData = new FormData(form);
       data.push({
-        fio: formData.get('fio'),
+        fio: formData.get('fio').trim(),
         date: formData.get('date'),
         time: formData.get('time'),
         paid: formData.get('paid') === 'on'
@@ -221,26 +247,58 @@
     };
 
     function showData() {
-      let data = JSON.parse(localStorage.getItem('formData') || '[]');
+      const data = JSON.parse(localStorage.getItem('formData') || '[]');
       if (!data.length) {
-        resultDiv.textContent = 'Нет данных';
+        resultDiv.innerHTML = '<div class="empty">Нет данных</div>';
         return;
       }
       resultDiv.innerHTML = '';
       data.forEach((item, i) => {
-        let div = document.createElement('div');
-        div.textContent = `${item.fio}, ${item.date} ${item.time} — Оплачен: `;
-        let span = document.createElement('span');
-        span.textContent = item.paid ? '✓' : '✗';
-        span.className = item.paid ? 'paid' : 'unpaid';
-        span.title = 'Нажмите, чтобы переключить статус оплаты';
-        span.onclick = () => {
+        const entry = document.createElement('div');
+        entry.className = 'entry';
+
+        const info = document.createElement('div');
+        info.className = 'info';
+
+        const fioLabel = document.createElement('div');
+        fioLabel.className = 'label';
+        fioLabel.textContent = 'Название:';
+        const fioText = document.createElement('span');
+        fioText.textContent = item.fio;
+
+        const dateLabel = document.createElement('div');
+        dateLabel.className = 'label';
+        dateLabel.textContent = 'Дата:';
+        const dateText = document.createElement('span');
+        dateText.textContent = item.date;
+
+        const timeLabel = document.createElement('div');
+        timeLabel.className = 'label';
+        timeLabel.textContent = 'Время:';
+        const timeText = document.createElement('span');
+        timeText.textContent = item.time;
+
+        info.appendChild(fioLabel);
+        info.appendChild(fioText);
+        info.appendChild(dateLabel);
+        info.appendChild(dateText);
+        info.appendChild(timeLabel);
+        info.appendChild(timeText);
+
+        const status = document.createElement('div');
+        status.className = 'status ' + (item.paid ? 'paid' : 'unpaid');
+        status.textContent = item.paid ? 'Оплачен' : 'Не оплачен';
+        status.title = 'Нажмите, чтобы переключить статус оплаты';
+        status.onclick = () => {
           data[i].paid = !data[i].paid;
           localStorage.setItem('formData', JSON.stringify(data));
           showData();
         };
-        div.appendChild(span);
-        resultDiv.appendChild(div);
+
+        entry.appendChild(info);
+        entry.appendChild(status);
+
+        resultDiv.appendChild(entry);
       });
     }
 
