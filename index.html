@@ -165,36 +165,36 @@
     }
 
     /* Мобильная версия */
-    @media (max-width: 480px) {
-  body {
+@media (max-width: 480px) {
+  html, body {
     margin: 0;
     padding: 0;
-    overflow: hidden; /* чтобы не было двойной прокрутки */
+    width: 100%;
+    overflow: hidden;
   }
   #form {
     position: fixed;
     top: 0; left: 0; right: 0;
-    height: 100vh;
-    overflow-y: auto;
-    background: white;
-    padding: 24px 18px;
-    box-sizing: border-box;
-    z-index: 1000;
-    max-width: 100%;
-    border-radius: 0;
-    box-shadow: none;
-  }
-  #result {
-    position: static;
-    margin-top: calc(100vh + 16px); /* чтобы результаты шли под формой */
-    max-height: none;
-    overflow-y: visible;
     width: 100%;
     max-width: 100%;
-    padding: 16px 18px;
+    height: 100vh;
+    margin: 0;
+    padding: 24px 18px;
     box-sizing: border-box;
+    background: white;
+    border-radius: 0;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+  #result {
+    margin-top: 100vh;
+    padding: 16px 18px;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
   }
 }
+
 
   </style>
 </head>
