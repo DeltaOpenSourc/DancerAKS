@@ -164,36 +164,32 @@
       user-select: none;
     }
 
-    /* Мобильная версия */
-@media (max-width: 480px) {
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    overflow: hidden;
-  }
-  #form {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    width: 100%;
-    max-width: 100%;
-    height: 100vh;
-    margin: 0;
-    padding: 24px 18px;
-    box-sizing: border-box;
-    background: white;
-    border-radius: 0;
-    overflow-y: auto;
-    z-index: 1000;
-  }
-  #result {
-    margin-top: 100vh;
-    padding: 16px 18px;
-    max-width: 100%;
-    box-sizing: border-box;
-    overflow-y: auto;
-  }
+    @media (max-width: 480px) {
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden; /* отключить скролл страницы */
+    }
+    #form, #result {
+      position: fixed; /* фиксируем на экране */
+      top: 0; left: 0; right: 0; bottom: 0; /* растягиваем по всему экрану */
+      margin: 0 !important; /* сбросить margin */
+      padding: 16px; /* по желанию */
+      width: 100% !important;
+      max-width: 100% !important;
+      height: 100% !important;
+      box-sizing: border-box;
+      overflow-y: auto; /* прокрутка внутри блока */
+      background: white; /* или нужный фон */
+      border-radius: 0 !important; /* убрать скругления, если есть */
+      z-index: 1000;
+    }
 }
+
+
+    /* Мобильная версия */
 
 
   </style>
